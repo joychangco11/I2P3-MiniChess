@@ -11,9 +11,17 @@
  * 
  * @return int 
  */
-int State::evaluate(){
-  // [TODO] design your own evaluation function
-  return 0;
+int State::evaluate() {
+    int pieceValues[7] = {0, 1, 5, 3, 3, 9, 50};  // Values for empty, pawn, rook, knight, bishop, queen, king
+    int score = 0;
+    for (int i = 0; i < BOARD_H; i++) {
+        for (int j = 0; j < BOARD_W; j++) {
+            score += pieceValues[board.board[this->player][i][j]];  // Add value of players's pieces
+            score -= pieceValues[board.board[1-this->player][i][j]];  // Subtract value of opponent's pieces
+        }
+    }
+
+    return score;
 }
 
 
