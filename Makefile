@@ -21,7 +21,7 @@ OTHER = action state gamelog.txt
 
 
 .PHONY: all clean
-all: |$(BUILD_DIR) $(TARGET_MAIN) $(TARGET_PLAYER) $(TARGET_UNITTEST)
+all: |$(BUILD_DIR) $(TARGET_MAIN) $(TARGET_PLAYER)
 player: |$(BUILD_DIR) $(TARGET_PLAYER)
 
 # make build dir if it doesn't exist
@@ -39,6 +39,8 @@ $(TARGET_OTHER): %: $(SOURCES_DIR)/%.cpp
 	$(CXX) $(CXXFLAGS) -o $(BUILD_DIR)/$@.exe $(STATE_SOURCE) $(POLICY_DIR)/*.cpp $<
 $(TARGET_UNITTEST): %: $(UNITTEST_DIR)/%.cpp
 	$(CXX) $(CXXFLAGS) -o $(UNITTEST_DIR)/build/$@.exe $(STATE_SOURCE) $(POLICY_DIR)/*.cpp $<
+clean:
+	del /Q $(BUILD_DIR)\* $(UNITTEST_DIR)\build\*
 else
 $(TARGET_PLAYER): % : $(SOURCES_DIR)/player/%.cpp
 	$(CXX) $(CXXFLAGS) -o $(BUILD_DIR)/player_$@ $(STATE_SOURCE) $(POLICY_DIR)/$@.cpp $< 
@@ -48,4 +50,6 @@ $(TARGET_OTHER): %: $(SOURCES_DIR)/%.cpp
 	$(CXX) $(CXXFLAGS) -o $(BUILD_DIR)/$@ $(STATE_SOURCE) $(POLICY_DIR)/*.cpp $<
 $(TARGET_UNITTEST): %: $(UNITTEST_DIR)/%.cpp
 	$(CXX) $(CXXFLAGS) -o $(UNITTEST_DIR)/build/$@ $(STATE_SOURCE) $(POLICY_DIR)/*.cpp $<
+clean:
+	rm -f $(BUILD_DIR)\* $(UNITTEST_DIR)\build\*
 endif
