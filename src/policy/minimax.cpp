@@ -1,15 +1,15 @@
+#include "./minimax.hpp"
+
 #include <cstdlib>
 
 #include "../state/state.hpp"
-#include "./minimax.hpp"
-
 
 /**
  * @brief get a legal action using Minimax policy
- * 
+ *
  * @param state Now state
  * @param depth You may need this for other policy
- * @return Move 
+ * @return Move
  */
 int Minimax::minimax(State* state, int depth, bool isMaximizingPlayer) {
     if (depth == 0 || state->game_state != NONE) {
